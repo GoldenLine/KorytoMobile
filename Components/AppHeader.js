@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {
+    Image,
     Platform,
     StatusBar, StyleSheet,
     Text,
@@ -24,11 +25,7 @@ export default class AppHeader extends Component {
         return (
             <Header style={styles.header}>
                 <Left>
-                    <Button transparent
-                            onPress={()=>this.props.openDrawer()}
-                    >
-                        <Icon name='menu' />
-                    </Button>
+
                 </Left>
                 <Body>
                 <Title>Nazwa Aplikacji</Title>

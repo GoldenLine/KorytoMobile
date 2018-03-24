@@ -1,22 +1,7 @@
 import React, {Component} from 'react';
-import {
-    Container,
-    Header,
-    Left,
-    Body,
-    Right,
-    Button,
-    Icon,
-    Title,
-    Card,
-    CardItem,
-    Thumbnail,
-    Drawer
-} from 'native-base';
-import {Platform, StatusBar, StyleSheet} from 'react-native';
 
-import SideBar from "./Components/SideBar";
 import AppHeader from "./Components/AppHeader";
+import {Container, Button, Text, Content} from "native-base";
 
 export default class HeaderExample extends Component {
 
@@ -32,27 +17,28 @@ export default class HeaderExample extends Component {
         this.setState({isReady: true})
     }
 
-    closeDrawer = () => {
-        this.drawer._root.close()
-    };
-    openDrawer = () => {
-        this.drawer._root.open()
-    };
+
     render() {
         if (!this.state.isReady) {
             return <Expo.AppLoading/>;
         }
+        let buttons = [];
+        for (let i=0; i< 20;i++) {
+            buttons.push(
+                <Button key={i} block info style={{marginTop: 15}}>
+                    <Text>Test</Text>
+                </Button>
+            )
+        }
 
         return (
-            <Drawer
-                ref={(ref) => { this.drawer = ref; }}
-                content={<SideBar/>}
-                onClose={() => this.closeDrawer()} >
+            <Container>
+                <AppHeader/>
+                <Content>
+                    { buttons }
 
-                <AppHeader
-                    openDrawer={this.openDrawer.bind(this)}
-                />
-            </Drawer>
+                </Content>
+            </Container>
         );
     }
 }
