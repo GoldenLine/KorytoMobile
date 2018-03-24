@@ -1,17 +1,42 @@
 import React, {Component} from 'react';
 
 import AppHeader from "./Components/AppHeader";
-import {Container, Button, Text, Content} from "native-base";
-
-function sendNotification(url) {
-    console.log(url);
-}
+import {Container, Button, Text, Content, Toast, Root} from "native-base";
 
 export default class HeaderExample extends Component {
 
     state = {
         isReady: false
     };
+
+    _sendNotification(url) {
+        console.log(url);
+        fetch(url).then((response) => {
+            if (false === response.ok) {
+                response.text().then((responseText => {
+                    Toast.show({
+                        text: responseText,
+                        position: 'bottom',
+                        buttonText: 'Okay',
+                        type: 'danger',
+                        duration: 3000,
+                    })
+                }))
+            } else {
+                Toast.show({
+                    text: 'Wysłano powiadomienie',
+                    position: 'bottom',
+                    buttonText: 'Okay',
+                    type: 'success',
+                    duration: 3000,
+                })
+            }
+
+        }).catch((error) => {
+            console.error(error);
+        });
+
+    }
 
     async componentWillMount() {
         await Expo.Font.loadAsync({
@@ -44,20 +69,23 @@ export default class HeaderExample extends Component {
 
         this.state.data.forEach((item) => {
             buttons.push(
-                <Button key={item.label} block warning style={{marginTop: 15}} onPress={sendNotification(item.url)}>
+                <Button key={item.label} block warning style={{marginTop: 15}} onPress={() => {
+                    this._sendNotification(item.url)
+                }}>
                     <Text>{item.label}</Text>
                 </Button>
             )
         });
 
-
         return (
-            <Container>
-                <AppHeader/>
-                <Content>
-                    {buttons}
-                </Content>
-            </Container>
+            <Root>
+                <Container>
+                    <AppHeader/>
+                    <Content>
+                        {buttons}
+                    </Content>
+                </Container>
+            </Root>
         );
     }
 }
