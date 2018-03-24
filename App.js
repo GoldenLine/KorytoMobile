@@ -13,6 +13,8 @@ import {
     Thumbnail,
     Drawer
 } from 'native-base';
+import {Platform, StatusBar, StyleSheet} from 'react-native';
+
 import SideBar from "./Components/SideBar";
 import AppHeader from "./Components/AppHeader";
 
