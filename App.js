@@ -130,6 +130,7 @@ export default class HeaderExample extends Component {
                 <Container>
                     <AppHeader/>
                     <Content>
+                        <KeyboardAvoidingView behavior="position">
                         {buttons}
                         <Form>
                             <Item floatingLabel>
@@ -141,7 +142,7 @@ export default class HeaderExample extends Component {
                         <Button onPress={() => {
                             this._sendOtherFood()
                         }}><Text>Wyślij</Text></Button>
-
+                        </KeyboardAvoidingView>
                     </Content>
 
                 </Container>
