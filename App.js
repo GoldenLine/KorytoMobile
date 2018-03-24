@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 
 import AppHeader from "./Components/AppHeader";
-import {Container, Button, Text, Content, Toast, Root} from "native-base";
+import {Container, Button, Text, Content, Toast, Root, Form, Item, Input, Card, CardItem, Label} from "native-base";
+import {KeyboardAvoidingView} from "react-native";
 
 export default class HeaderExample extends Component {
 
@@ -46,6 +47,10 @@ export default class HeaderExample extends Component {
 
     }
 
+    _sendOtherFood() {
+        console.log(this.state.text);
+    }
+
     async componentWillMount() {
         await Expo.Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
@@ -86,14 +91,30 @@ export default class HeaderExample extends Component {
         });
 
         return (
+
+
             <Root>
                 <Container>
                     <AppHeader/>
                     <Content>
                         {buttons}
+                        <Form>
+                            <Item floatingLabel>
+                                <Label>Kto inny przyszedł?</Label>
+
+                                    <Input onChangeText={(text) => this.setState({text})}
+                                           value={this.state.text}/>
+                            </Item>
+                        </Form>
+                        <Button onPress={() => {
+                            this._sendOtherFood()
+                        }}><Text>Wyślij</Text></Button>
+
                     </Content>
+
                 </Container>
             </Root>
+
         );
     }
 }
