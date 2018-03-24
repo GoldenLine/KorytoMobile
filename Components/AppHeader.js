@@ -24,17 +24,9 @@ export default class AppHeader extends Component {
     render() {
         return (
             <Header style={styles.header}>
-                <Left>
-
-                </Left>
                 <Body>
-                <Title>Nazwa Aplikacji</Title>
+                <Title>Koryto Mobile</Title>
                 </Body>
-                <Right>
-                    <Button transparent>
-                        <Icon name='bulb' />
-                    </Button>
-                </Right>
             </Header>
         );
     }
@@ -48,6 +40,7 @@ const styles = StyleSheet.create({
     header: {
         paddingTop: getStatusBarHeight(),
         height: 54 + getStatusBarHeight(),
+        backgroundColor: '#ffc53f',
     },
 });
 
