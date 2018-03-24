@@ -2,13 +2,9 @@ import React, {Component} from 'react';
 
 import AppHeader from "./Components/AppHeader";
 import {Container, Button, Text, Content} from "native-base";
-import {fetch} from "react-native";
 
-export function getFood() {
-    return fetch('')
-        .then(function(response) {
-            return response.json()
-        });
+function sendNotification(url) {
+    console.log(url);
 }
 
 export default class HeaderExample extends Component {
@@ -22,6 +18,15 @@ export default class HeaderExample extends Component {
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
             'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
         });
+        fetch('http://koryto.goldenline.pl/zarcie/lista')
+            .then((response) => response.json())
+            .then(data => {
+                this.setState({data: data})
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+
         this.setState({isReady: true})
     }
 
@@ -30,21 +35,27 @@ export default class HeaderExample extends Component {
         if (!this.state.isReady) {
             return <Expo.AppLoading/>;
         }
+
+        if (!this.state.data) {
+            return <Expo.AppLoading/>;
+        }
+
         let buttons = [];
-        for (let i=0; i< 20;i++) {
+
+        this.state.data.forEach((item) => {
             buttons.push(
-                <Button key={i} block info style={{marginTop: 15}}>
-                    <Text>Test {i}</Text>
+                <Button key={item.label} block warning style={{marginTop: 15}} onPress={sendNotification(item.url)}>
+                    <Text>{item.label}</Text>
                 </Button>
             )
-        }
+        });
+
 
         return (
             <Container>
                 <AppHeader/>
                 <Content>
-                    { buttons }
-
+                    {buttons}
                 </Content>
             </Container>
         );
