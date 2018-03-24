@@ -48,7 +48,40 @@ export default class HeaderExample extends Component {
     }
 
     _sendOtherFood() {
-        console.log(this.state.text);
+        this.setState({text: null})
+        Toast.show({
+            text: 'Proszę czekać...',
+            position: 'bottom',
+            buttonText: 'Okay',
+            type: 'info',
+            duration: 5000,
+        });
+
+        fetch('https://koryto.goldenline.pl/mobilnie/zarcie/' + this.state.text).then((response) => {
+            Toast.toastInstance._root.closeModal();
+            if (false === response.ok) {
+                response.text().then((responseText => {
+                    Toast.show({
+                        text: responseText,
+                        position: 'bottom',
+                        buttonText: 'Okay',
+                        type: 'danger',
+                        duration: 3000,
+                    })
+                }))
+            } else {
+                Toast.show({
+                    text: 'Wysłano powiadomienie',
+                    position: 'bottom',
+                    buttonText: 'Okay',
+                    type: 'success',
+                    duration: 3000,
+                })
+            }
+
+        }).catch((error) => {
+            console.error(error);
+        });
     }
 
     async componentWillMount() {
@@ -102,8 +135,7 @@ export default class HeaderExample extends Component {
                             <Item floatingLabel>
                                 <Label>Kto inny przyszedł?</Label>
 
-                                    <Input onChangeText={(text) => this.setState({text})}
-                                           value={this.state.text}/>
+                                <Input onChangeText={(text) => this.setState({text})} value={this.state.text}/>
                             </Item>
                         </Form>
                         <Button onPress={() => {
