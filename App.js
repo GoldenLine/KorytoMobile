@@ -2,6 +2,14 @@ import React, {Component} from 'react';
 
 import AppHeader from "./Components/AppHeader";
 import {Container, Button, Text, Content} from "native-base";
+import {fetch} from "react-native";
+
+export function getFood() {
+    return fetch('')
+        .then(function(response) {
+            return response.json()
+        });
+}
 
 export default class HeaderExample extends Component {
 
@@ -26,7 +34,7 @@ export default class HeaderExample extends Component {
         for (let i=0; i< 20;i++) {
             buttons.push(
                 <Button key={i} block info style={{marginTop: 15}}>
-                    <Text>Test</Text>
+                    <Text>Test {i}</Text>
                 </Button>
             )
         }
