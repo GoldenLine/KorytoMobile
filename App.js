@@ -10,8 +10,16 @@ export default class HeaderExample extends Component {
     };
 
     _sendNotification(url) {
-        console.log(url);
+            Toast.show({
+                text: 'Proszę czekać...',
+                position: 'bottom',
+                buttonText: 'Okay',
+                type: 'info',
+                duration: 5000,
+            });
+
         fetch(url).then((response) => {
+            Toast.toastInstance._root.closeModal();
             if (false === response.ok) {
                 response.text().then((responseText => {
                     Toast.show({
