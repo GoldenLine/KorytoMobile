@@ -24,8 +24,11 @@ export default class AppHeader extends Component {
     render() {
         return (
             <Header style={styles.header}>
+                <Left style={styles.left}>
+                    <Image source={{uri: 'https://bis.gazeta.pl/im/6/22376/m22376736.png'}}  style={{height:55, width: 55, flex: 1}} />
+                </Left>
                 <Body>
-                <Title>Koryto Mobile</Title>
+                <Title style={styles.title}>Koryto Mobile</Title>
                 </Body>
             </Header>
         );
@@ -39,9 +42,15 @@ const styles = StyleSheet.create({
     },
     header: {
         paddingTop: getStatusBarHeight(),
-        height: 54 + getStatusBarHeight(),
-        backgroundColor: '#ffc53f',
+        height: 57 + getStatusBarHeight(),
+        backgroundColor: '#f3f3f3',
     },
+    left: {
+        width: 200
+    },
+    title: {
+        color: '#474747',
+    }
 });
 
 module.exports = AppHeader;
